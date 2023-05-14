@@ -5,6 +5,7 @@ jobs:
     name: windows-test
     runs-on: windows-2022
     steps:
+      - uses: actions/checkout@v2
       - name: Set version
         run: |
           echo "MY_VERSION=$(git describe).substring(1)" >> "$GITHUB_ENV"
