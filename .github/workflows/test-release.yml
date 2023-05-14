@@ -31,12 +31,12 @@ jobs:
             echo "snapchannel=edge" >> "$GITHUB_OUTPUT"
           fi
 
-    use-release-type:
-      runs-on: ubuntu-latest
-      needs: set-release-type
-      steps:
-        - name: Set release type
-          run: |
-            echo "relasetype: ${{needs.set-release-type.outputs.releasetype}}"
-            echo "snapchannel: ${{needs.set-release-type.outputs.snapchannel}}"
+  use-release-type:
+    runs-on: ubuntu-latest
+    needs: set-release-type
+    steps:
+      - name: Set release type
+        run: |
+          echo "relasetype: ${{needs.set-release-type.outputs.releasetype}}"
+          echo "snapchannel: ${{needs.set-release-type.outputs.snapchannel}}"
             
