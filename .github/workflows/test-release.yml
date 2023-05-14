@@ -1,0 +1,41 @@
+name: release-test
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+(-.*)?'
+
+
+jobs:
+  set-release-type:
+    runs-on: ubuntu-latest
+    outputs:
+      releasetype: ${{ steps.set-release-type-step.outputs.releasetype }}
+      snapchannel: ${{ steps.set-release-type-step.outputs.snapchannel }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set release type
+        id: set-release-type-step
+        run: |
+          if [[ $GITHUB_REF_NAME ~= ^v[0-9]+.[0-9]+.[0-9]+$ ]]
+          then
+            echo "release"
+            echo "releasetype=release" >> "$GITHUB_OUTPUT"
+            echo "snapchannel=stable" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease"
+            echo "releasetype=prerelease" >> "$GITHUB_OUTPUT"
+            echo "snapchannel=edge" >> "$GITHUB_OUTPUT"
+          fi
+
+    use-release-type:
+      runs-on: ubuntu-latest
+      needs: set-release-type
+      steps:
+        - name: Set release type
+          run: |
+            echo "relasetype: ${{needs.set-release-type.outputs.releasetype}}"
+            echo "snapchannel: ${{needs.set-release-type.outputs.snapchannel}}"
+            
