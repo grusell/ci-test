@@ -13,4 +13,4 @@ jobs:
           echo "MY_VERSION=$(git describe).substring(1)" >> "$GITHUB_ENV"
       - name: Get version
         run: |
-          echo "$MY_VERSION"
+          echo "$env:MY_VERSION"
