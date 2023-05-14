@@ -20,7 +20,7 @@ jobs:
       - name: Set release type
         id: set-release-type-step
         run: |
-          if [[ $GITHUB_REF_NAME ~= ^v[0-9]+.[0-9]+.[0-9]+$ ]]
+          if [[ $GITHUB_REF_NAME =~ ^v[0-9]+[.][0-9]+[.][0-9]+$ ]]
           then
             echo "release"
             echo "releasetype=release" >> "$GITHUB_OUTPUT"
