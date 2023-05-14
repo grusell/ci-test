@@ -10,7 +10,7 @@ jobs:
           fetch-depth: 0
       - name: Set version
         run: |
-          echo "MY_VERSION=$(git describe).substring(1)" >> "$GITHUB_ENV"
+          echo "MY_VERSION=$(git describe).substring(1)" >> "$env:GITHUB_ENV"
       - name: Get version
         run: |
           echo "$env:MY_VERSION"
